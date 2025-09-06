@@ -5,10 +5,10 @@ import { ref, onMounted } from 'vue'
 const categoryList = ref([])
 const getCategory = async () => {
   const res = await getCategoryAPI()
-  console.log(res)
+  // console.log(res)
   categoryList.value = res.result
 }
-console.log(categoryList)
+// console.log(categoryList)
 onMounted(() => {
   getCategory()
 })
