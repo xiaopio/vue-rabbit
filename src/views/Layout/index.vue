@@ -10,3 +10,4 @@ import LayoutFooter from './components/LayoutFooter.vue'
   <RouterView />
   <LayoutFooter />
 </template>
+

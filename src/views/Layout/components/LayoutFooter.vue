@@ -223,6 +223,10 @@
         border-right: none;
       }
     }
+
+    a:hover {
+      color: $xtxColor;
+    }
   }
 }
 </style>
