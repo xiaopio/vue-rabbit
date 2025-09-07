@@ -3,9 +3,9 @@ import { onMounted, ref } from "vue"
 import { useRoute } from "vue-router"
 import { getCategoryFilterAPI, getSubCategoryAPI } from "@/apis/category"
 import GoodsItem from '@/views/Home/components/GoodsItem.vue'
+
 const categoryData = ref({})
 const route = useRoute()
-
 const getCategoryData = async () => {
   const res = await getCategoryFilterAPI(route.params.id)
   categoryData.value = res.result
@@ -38,6 +38,19 @@ const tabChange = () => {
   reqData.value.page = 1
   getGoodList()
 }
+// 无限加载
+const disabled = ref(false)
+const load = async () => {
+  // 获取下一页数据
+  reqData.value.page++
+  const res = await getSubCategoryAPI(reqData.value)
+  // 追加数据
+  goodList.value = [...goodList.value, ...res.result.items]
+  // 判断是否还有下一页
+  if (res.result.items.length === 0) {
+    disabled.value = true
+  }
+}
 </script>
 
 <template>
@@ -57,13 +70,12 @@ const tabChange = () => {
         <el-tab-pane label="最高人气" name="orderNum"></el-tab-pane>
         <el-tab-pane label="评论最多" name="evaluateNum"></el-tab-pane>
       </el-tabs>
-      <div class="body">
+      <div class="body" v-infinite-scroll="load" :infinite-scroll-disabled="disabled">
         <!-- 商品列表-->
         <GoodsItem v-for="goods in goodList" :goods="goods" :key="goods.id" />
       </div>
     </div>
   </div>
-
 </template>
 
 
@@ -120,7 +132,5 @@ const tabChange = () => {
     display: flex;
     justify-content: center;
   }
-
-
 }
 </style>
