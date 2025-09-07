@@ -14,7 +14,7 @@ export function useCategory() {
 
   // 目标:路由参数变化的时候 可以把分类数据接口重新发送
   onBeforeRouteUpdate((to) => {
-    console.log('路由参数变化了');
+    // console.log('路由参数变化了');
     // 重新获取数据，存在问题，使用最新的路由参数请求最新的分类数据
     // console.log(to);
     getCategoryData(to.params.id)
