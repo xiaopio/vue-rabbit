@@ -1,17 +1,24 @@
 <script setup>
 import { getTopCategoryAPI } from "@/apis/category"
 import { ref, onMounted, watch } from "vue"
-import { useRoute } from "vue-router"
+import { useRoute, onBeforeRouteUpdate } from "vue-router"
 import GoodsItem from "@/views/Home/components/GoodsItem.vue"
 const route = useRoute();
 // 获取数据
 const categoryData = ref(null);
-const getCategoryData = async () => {
-  const res = await getTopCategoryAPI(route.params.id)
-  // console.log(route.params.id)
+const getCategoryData = async (id = route.params.id) => {
+  const res = await getTopCategoryAPI(id)
   categoryData.value = res.result
-  // console.log(res.result);
 }
+
+// 目标:路由参数变化的时候 可以把分类数据接口重新发送
+onBeforeRouteUpdate((to) => {
+  console.log('路由参数变化了');
+  // 重新获取数据，存在问题，使用最新的路由参数请求最新的分类数据
+  // console.log(to);
+  getCategoryData(to.params.id)
+
+})
 
 // 获取banner
 import { getBannerAPI } from "@/apis/home.js";
@@ -35,9 +42,9 @@ onMounted(async () => {
 });
 
 // 监听路由参数变化（如果页面可能在同路由下参数变化）
-watch(() => route.params.id, () => {
-  getCategoryData()
-})
+// watch(() => route.params.id, () => {
+//   getCategoryData()
+// })
 </script>
 
 <template>

@@ -15,6 +15,8 @@ onMounted(() => categoryStore.getCategory())
   <LayoutFixed />
   <LayoutNav />
   <LayoutHeader />
+  <!-- 添加key 破坏复用机制 强制销毁重建 目的是为了解决在点击导航栏其他标签之后onMounted方法不执行 -->
+  <!-- <RouterView :key="$route.fullPath"/> -->
   <RouterView />
   <LayoutFooter />
 </template>
