@@ -1,50 +1,10 @@
 <script setup>
-import { getTopCategoryAPI } from "@/apis/category"
-import { ref, onMounted, watch } from "vue"
-import { useRoute, onBeforeRouteUpdate } from "vue-router"
 import GoodsItem from "@/views/Home/components/GoodsItem.vue"
-const route = useRoute();
-// 获取数据
-const categoryData = ref(null);
-const getCategoryData = async (id = route.params.id) => {
-  const res = await getTopCategoryAPI(id)
-  categoryData.value = res.result
-}
+import { useBanner } from "@/views/Category/composables/useBanner"
+import { useCategory } from "@/views/Category/composables/useCategory";
 
-// 目标:路由参数变化的时候 可以把分类数据接口重新发送
-onBeforeRouteUpdate((to) => {
-  console.log('路由参数变化了');
-  // 重新获取数据，存在问题，使用最新的路由参数请求最新的分类数据
-  // console.log(to);
-  getCategoryData(to.params.id)
-
-})
-
-// 获取banner
-import { getBannerAPI } from "@/apis/home.js";
-const bannerList = ref([]);
-const getBanner = async () => {
-  const res = await getBannerAPI({
-    distributionSite: '2'
-  });
-  // console.log(res);
-  // console.log(res.result);
-  bannerList.value = res.result;
-}
-
-// 修正 onMounted 写法：单个回调函数内执行所有初始化请求
-onMounted(async () => {
-  // 可选：并行请求（提高加载效率，两个请求互不依赖）
-  await Promise.all([
-    getCategoryData(),
-    getBanner()
-  ]);
-});
-
-// 监听路由参数变化（如果页面可能在同路由下参数变化）
-// watch(() => route.params.id, () => {
-//   getCategoryData()
-// })
+const { bannerList } = useBanner();
+const { categoryData } = useCategory();
 </script>
 
 <template>
