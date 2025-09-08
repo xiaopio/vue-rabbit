@@ -1,4 +1,5 @@
 <script setup>
+import  DetailHot  from '@/views/Detail/components/DetailHot.vue'
 import { getDetail } from '@/apis/detail'
 import { onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router'
@@ -68,10 +69,10 @@ onMounted(() => {
             <div class="spec">
               <!-- 商品信息区 -->
               <p class="g-name"> {{ goods.name }} </p>
-              <p class="g-desc">{{goods.desc}} </p>
+              <p class="g-desc">{{ goods.desc }} </p>
               <p class="g-price">
-                <span class = price>{{goods.price}}</span>
-                <span class="oldPrice" v-if="goods.oldPrice !== goods.price"> {{goods.oldPrice}}</span>
+                <span class=price>{{ goods.price }}</span>
+                <span class="oldPrice" v-if="goods.oldPrice !== goods.price"> {{ goods.oldPrice }}</span>
               </p>
               <div class="g-service">
                 <dl>
@@ -112,8 +113,8 @@ onMounted(() => {
                   <!-- 属性 -->
                   <ul class="attrs">
                     <li v-for="item in goods.details.properties" :key="item.value">
-                      <span class="dt">{{item.name}}</span>
-                      <span class="dd">{{item.value}}</span>
+                      <span class="dt">{{ item.name }}</span>
+                      <span class="dd">{{ item.value }}</span>
                     </li>
                   </ul>
                   <!-- 图片 -->
@@ -123,7 +124,10 @@ onMounted(() => {
             </div>
             <!-- 24热榜+专题推荐 -->
             <div class="goods-aside">
-
+              <!-- 24热榜 -->
+              <DetailHot />
+              <!-- 周热榜 -->
+              <DetailHot />
             </div>
           </div>
         </div>
