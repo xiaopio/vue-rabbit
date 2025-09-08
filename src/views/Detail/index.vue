@@ -1,5 +1,5 @@
 <script setup>
-import  DetailHot  from '@/views/Detail/components/DetailHot.vue'
+import DetailHot from '@/views/Detail/components/DetailHot.vue'
 import { getDetail } from '@/apis/detail'
 import { onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router'
@@ -30,7 +30,7 @@ onMounted(() => {
           <el-breadcrumb-item :to="{ path: `/category/${goods.categories?.[1].id}` }">{{ goods.categories?.[1].name }}
           </el-breadcrumb-item>
           <el-breadcrumb-item :to="{ path: `/category/sub/${goods.categories?.[0].id}` }">{{ goods.categories?.[0].name
-            }}
+          }}
           </el-breadcrumb-item>
           <el-breadcrumb-item>{{ goods?.name }}</el-breadcrumb-item>
         </el-breadcrumb>
@@ -125,9 +125,9 @@ onMounted(() => {
             <!-- 24热榜+专题推荐 -->
             <div class="goods-aside">
               <!-- 24热榜 -->
-              <DetailHot />
+              <DetailHot :hot-type="1" />
               <!-- 周热榜 -->
-              <DetailHot />
+              <DetailHot :hot-type="2" />
             </div>
           </div>
         </div>
