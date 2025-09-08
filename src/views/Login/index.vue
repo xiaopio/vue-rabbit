@@ -4,6 +4,10 @@ import { ElMessage } from 'element-plus';
 import 'element-plus/dist/index.css'
 import { ref } from 'vue';
 import { useRouter } from 'vue-router'
+
+import { useUserStore } from '@/stores/user'
+
+const userStore = useUserStore()
 // 表单校验
 
 // 准备表单对象
@@ -58,14 +62,10 @@ const doLogin = () => {
     // valid所有表单都通过校验才为true
     if (valid) {
       const { account, password } = form.value
-      const res = await loginAPI({ account, password })
-      console.log(res);
-      if (res.code !== 1) {
-        // 登录成功
-        ElMessage.success('登录成功')
-        // 跳转到首页
-        router.replace('/')
-      }
+      await userStore.getUserInfo({ account, password })
+      ElMessage.success('登录成功')
+      // 跳转到首页
+      router.replace('/')
     } else {
       // 登录失败
       ElMessage.error('请正确填写的信息并勾选协议')
