@@ -3,6 +3,8 @@ import { onMounted, ref } from "vue"
 import { useRoute } from "vue-router"
 import { getCategoryFilterAPI, getSubCategoryAPI } from "@/apis/category"
 import GoodsItem from '@/views/Home/components/GoodsItem.vue'
+import { ElMessage } from 'element-plus';
+import 'element-plus/dist/index.css'
 
 const categoryData = ref({})
 const route = useRoute()
@@ -49,6 +51,8 @@ const load = async () => {
   // 判断是否还有下一页
   if (res.result.items.length === 0) {
     disabled.value = true
+    ElMessage.error('没有更多数据了')
+    return
   }
 }
 </script>
