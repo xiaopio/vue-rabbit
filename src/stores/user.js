@@ -6,7 +6,7 @@ export const useUserStore = defineStore('user', () => {
 
   const userInfo = ref({})
 
-  const getUserInfo = async ({account, password}) => {
+  const getUserInfo = async ({ account, password }) => {
     const res = await loginAPI({
       account,
       password
@@ -18,4 +18,8 @@ export const useUserStore = defineStore('user', () => {
     userInfo,
     getUserInfo
   }
-})
+},
+  {
+    // 持久化保存
+    persist: true
+  })
