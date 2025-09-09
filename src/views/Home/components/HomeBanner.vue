@@ -19,7 +19,9 @@ onMounted(() => getBanner())
   <div class="home-banner">
     <el-carousel height="500px">
       <el-carousel-item v-for="item in bannerList" :key="item">
-        <img :src="item.imgUrl" alt="">
+        <RouterLink :to="`${item.hrefUrl}`">
+          <img :src="item.imgUrl" alt="">
+        </Routerlink>
       </el-carousel-item>
     </el-carousel>
   </div>

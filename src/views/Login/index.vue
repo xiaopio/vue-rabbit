@@ -5,7 +5,7 @@ import 'element-plus/dist/index.css'
 import { ref } from 'vue';
 import { useRouter } from 'vue-router'
 
-import { useUserStore } from '@/stores/user'
+import { useUserStore } from '@/stores/userStore'
 
 const userStore = useUserStore()
 // 表单校验
