@@ -3,7 +3,10 @@ import DetailHot from '@/views/Detail/components/DetailHot.vue'
 import { getDetail } from '@/apis/detail'
 import { onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router'
+import { ElMessage } from 'element-plus';
+import { useCartStore } from '@/stores/cartStore'
 
+const cartStore = useCartStore()
 const goods = ref({})
 const route = useRoute()
 const getGoods = async () => {
@@ -16,10 +19,38 @@ onMounted(() => {
 })
 
 // sku规格被操作时
+let skuObj = {}
 const changeSku = (sku) => {
   // console.log(sku)
+  skuObj = sku
 }
 
+// count
+const count = ref(1)
+const handleChange = (count) => {
+  console.log(count)
+}
+
+// 添加购物车
+const addCart = () => {
+  if (skuObj.skuId) {
+    // 规格已选择,触发action
+    cartStore.addCart({
+      id: goods.value.id, // 商品id
+      name: goods.value.name, // 名称
+      pictures: goods.value.mainPictures[0], // 图片
+      price: goods.value.price, // 价格
+      count: count.value, // 数量
+      skuId: skuObj.skuId, // skuId
+      attrsText: skuObj.specsText, // 规格文字
+      selected: true // 是否选中
+    })
+  } else {
+    // 规格未选择
+    ElMessage.error('请选择商品规格')
+    return
+  }
+}
 </script>
 
 <template>
@@ -30,7 +61,7 @@ const changeSku = (sku) => {
           <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
           <!-- 错误原因：goods开始为{}，没有数据
                   1.可选链的语法?.
-                  2.v-if手动控制渲染时机 保证只有数据存在才渲染 
+                  2.v-if手动控制渲染时机 保证只有数据存在才渲染
           -->
           <el-breadcrumb-item :to="{ path: `/category/${goods.categories?.[1].id}` }">{{ goods.categories?.[1].name }}
           </el-breadcrumb-item>
@@ -44,9 +75,9 @@ const changeSku = (sku) => {
       <div class="info-container">
         <div>
           <div class="goods-info">
-            <div class="media">   
+            <div class="media">
               <!-- 图片预览区 -->
-              <XtxImageView :image-list="goods?.mainPictures"/>
+              <XtxImageView :image-list="goods?.mainPictures" />
               <!-- 统计数量 -->
               <ul class="goods-sales">
                 <li>
@@ -95,12 +126,12 @@ const changeSku = (sku) => {
                 </dl>
               </div>
               <!-- sku组件 -->
-              <XtxSku :goods="goods" @change="changeSku"/>
+              <XtxSku :goods="goods" @change="changeSku" />
               <!-- 数据组件 -->
-
+              <el-input-number v-model="count" :min="1" :max="10" @change="handleChange" />"
               <!-- 按钮组件 -->
               <div>
-                <el-button size="large" class="btn">
+                <el-button size="large" class="btn" @click="addCart()">
                   加入购物车
                 </el-button>
               </div>
