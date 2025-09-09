@@ -13,10 +13,15 @@ export const useUserStore = defineStore('user', () => {
     })
     userInfo.value = res.result
   }
+  // 退出登录
+  const clearUserInfo = () => {
+    userInfo.value = {}
+  }
 
   return {
     userInfo,
-    getUserInfo
+    getUserInfo,
+    clearUserInfo
   }
 },
   {
