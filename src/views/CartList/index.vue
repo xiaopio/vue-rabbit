@@ -34,7 +34,7 @@ const singleCheck = (i, selected) => {
               </td>
               <td>
                 <div class="goods">
-                  <RouterLink :to="`/detail/${i.id}`"><img :src="i.pictures" alt="" /></RouterLink>
+                  <RouterLink :to="`/detail/${i.id}`"><img :src="i.picture" alt="" /></RouterLink>
                   <div>
                     <p class="name ellipsis">
                       {{ i.name }}
