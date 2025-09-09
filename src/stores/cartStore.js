@@ -19,9 +19,20 @@ export const useCartStore = defineStore('cart', () => {
     }
   }
 
+  // action: 删除购物车
+  const delCart = (skuId) => {
+    // 1. 找到要删除的索引
+    const index = cartList.value.findIndex(item => item.skuId === skuId)
+    // 2. 删除
+    if (index !== -1) {
+      cartList.value.splice(index, 1)
+    }
+  }
+
   return {
     cartList,
-    addCart
+    addCart,
+    delCart
   }
 },
   {
