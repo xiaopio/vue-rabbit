@@ -66,7 +66,7 @@ const addCart = () => {
           <el-breadcrumb-item :to="{ path: `/category/${goods.categories?.[1].id}` }">{{ goods.categories?.[1].name }}
           </el-breadcrumb-item>
           <el-breadcrumb-item :to="{ path: `/category/sub/${goods.categories?.[0].id}` }">{{ goods.categories?.[0].name
-          }}
+            }}
           </el-breadcrumb-item>
           <el-breadcrumb-item>{{ goods?.name }}</el-breadcrumb-item>
         </el-breadcrumb>
@@ -128,7 +128,7 @@ const addCart = () => {
               <!-- sku组件 -->
               <XtxSku :goods="goods" @change="changeSku" />
               <!-- 数据组件 -->
-              <el-input-number v-model="count" :min="1" :max="99" @change="handleChange" />"
+              <el-input-number v-model="count" :min="1" :max="99" @change="handleChange" />
               <!-- 按钮组件 -->
               <div>
                 <el-button size="large" class="btn" @click="addCart()">
@@ -189,6 +189,11 @@ const addCart = () => {
     .spec {
       flex: 1;
       padding: 30px 30px 30px 0;
+      
+      .el-button:hover {
+        color: $xtxColor;
+        border-color: $xtxColor;
+      }
     }
   }
 

@@ -79,6 +79,12 @@ export const useCartStore = defineStore('cart', () => {
     cartList.value.forEach(item => item.selected = selected)
   }
 
+  // 清除购物车
+  const clearCart = () => {
+    // 删除所有商品
+    cartList.value = []
+  }
+
 
 
   return {
@@ -91,7 +97,8 @@ export const useCartStore = defineStore('cart', () => {
     addCart,
     delCart,
     singleSelect,
-    selectAll
+    selectAll,
+    clearCart
   }
 },
   {
