@@ -1,10 +1,10 @@
 <script setup>
-import { ref, onMounted } from 'vue';
-import { useRoute } from 'vue-router';
-import { getOrderAPI } from '@/apis/pay';
+import {ref, onMounted} from 'vue';
+import {useRoute} from 'vue-router';
+import {getOrderAPI} from '@/apis/pay';
 const route = useRoute();
 const orderInfo = ref({});
-const getOrderInfo = async() => {
+const getOrderInfo = async () => {
   const res = await getOrderAPI(route.query.orderId)
   orderInfo.value = res.result
 }
@@ -24,11 +24,12 @@ onMounted(() => {
         <p class="tit">支付成功</p>
         <p class="tip">我们将尽快为您发货，收货期间请保持手机畅通</p>
         <p>支付方式：<span>支付宝</span></p>
-        <p>支付金额：<span>¥{{ orderInfo.payMoney?.toFixed(2)}}</span></p>
+        <p>支付金额：<span>¥{{ orderInfo.payMoney?.toFixed(2) }}</span></p>
         <div class="btn">
           <el-button type="primary" style="margin-right:20px">查看订单</el-button>
           <el-button>进入首页</el-button>
         </div>
+        计时器
         <p class="alert">
           <span class="iconfont icon-tip"></span>
           温馨提示：小兔鲜儿不会以订单异常、系统升级为由要求您点击任何网址链接进行退款操作，保护资产、谨慎操作。
@@ -38,7 +39,8 @@ onMounted(() => {
         <!-- <span class="iconfont icon-queren2 green"></span> -->
         <span class="iconfont icon-shanchu red"></span>
         <p class="tit">支付失败</p>
-        <p class="tip">如遇<strong> 支付异常 </strong>,请<strong> 联系客服 </strong>查询订单状态。</p>
+        <p class="tip">如遇<strong> 支付异常 </strong>,请<strong> 联系客服 </strong>查询订单状态。
+        </p>
         <p class="tip">24小时客服电话：<a href="/">188****8888</a></p>
         <div class="btn">
           <el-button type="primary" style="margin-right:20px">查看订单</el-button>
@@ -60,7 +62,7 @@ onMounted(() => {
   text-align: center;
   margin-top: 20px;
 
-  >.iconfont {
+  > .iconfont {
     font-size: 100px;
   }
 
