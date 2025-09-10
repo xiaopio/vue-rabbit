@@ -29,7 +29,7 @@ const changeSku = (sku) => {
 const count = ref(1)
 const handleChange = (count) => {
   // console.log(count)
-  count.value = count
+  // count.value = count
 }
 
 // 添加购物车
