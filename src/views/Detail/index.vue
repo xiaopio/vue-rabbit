@@ -28,7 +28,8 @@ const changeSku = (sku) => {
 // count
 const count = ref(1)
 const handleChange = (count) => {
-  console.log(count)
+  // console.log(count)
+  count.value = count
 }
 
 // 添加购物车
@@ -189,7 +190,7 @@ const addCart = () => {
     .spec {
       flex: 1;
       padding: 30px 30px 30px 0;
-      
+
       .el-button:hover {
         color: $xtxColor;
         border-color: $xtxColor;
